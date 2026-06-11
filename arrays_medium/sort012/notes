@@ -1,0 +1,174 @@
+Dutch National Flag Algorithm (Sort 0s, 1s and 2s)
+Definition
+
+The Dutch National Flag Algorithm sorts an array containing only 0s, 1s, and 2s in a single
+traversal using three pointers: low, mid, and high.
+
+Key Idea
+
+Maintain four regions:
+
+0 to low-1       → Sorted 0s
+low to mid-1     → Sorted 1s
+mid to high      → Unsorted elements
+high+1 to n-1    → Sorted 2s
+
+Our goal is to shrink the unsorted region (mid to high) until the entire array becomes sorted.
+
+Dutch National Flag Algorithm - Pointwise Notes
+ Initialize three pointers:
+ low = 0
+ mid = 0
+ high = n - 1
+ Consider the entire array as the unsorted region initially.
+ Continue the process while mid <= high.
+ If array[mid] == 0:
+ Swap array[low] and array[mid].
+ Increment low.
+ Increment mid.
+ This places the 0 in the correct region.
+ If array[mid] == 1:
+ No swapping is required.
+ Increment mid.
+ This expands the region containing sorted 1s.
+ If array[mid] == 2:
+ Swap array[mid] and array[high].
+ Decrement high.
+ Do not increment mid.
+ The element coming from the high position is still unprocessed and must be checked again.
+ Repeat until mid > high.
+ At this point:
+ All 0s are on the left.
+ All 1s are in the middle.
+ All 2s are on the right.
+ The array is completely sorted.
+
+Dutch National Flag Algorithm Dry Run
+
+Array:
+
+[2, 0, 2, 1, 1, 0]
+
+Initial:
+
+low = 0, mid = 0, high = 5
+
+Array:
+
+[2, 0, 2, 1, 1, 0]
+
+Step 1
+
+arr[mid] = 2
+
+Swap arr[mid] and arr[high]
+
+Swap 2 and 0
+
+Array:
+
+[0, 0, 2, 1, 1, 2]
+
+high--
+
+low = 0, mid = 0, high = 4
+
+Step 2
+
+arr[mid] = 0
+
+Swap arr[low] and arr[mid]
+
+Swap 0 and 0
+
+Array:
+
+[0, 0, 2, 1, 1, 2]
+
+low++
+
+mid++
+
+low = 1, mid = 1, high = 4
+
+Step 3
+
+arr[mid] = 0
+
+Swap arr[low] and arr[mid]
+
+Swap 0 and 0
+
+Array:
+
+[0, 0, 2, 1, 1, 2]
+
+low++
+
+mid++
+
+low = 2, mid = 2, high = 4
+
+Step 4
+
+arr[mid] = 2
+
+Swap arr[mid] and arr[high]
+
+Swap 2 and 1
+
+Array:
+
+[0, 0, 1, 1, 2, 2]
+
+high--
+
+low = 2, mid = 2, high = 3
+
+Do not increment mid
+
+Step 5
+
+arr[mid] = 1
+
+No swap
+
+mid++
+
+low = 2, mid = 3, high = 3
+
+Array:
+
+[0, 0, 1, 1, 2, 2]
+
+Step 6
+
+arr[mid] = 1
+
+No swap
+
+mid++
+
+low = 2, mid = 4, high = 3
+
+Array:
+
+[0, 0, 1, 1, 2, 2]
+
+Stop Condition
+
+mid > high
+
+4 > 3
+
+Loop ends.
+
+Final Sorted Array
+
+[0, 0, 1, 1, 2, 2]
+
+
+Dutch National Flag Algorithm
+
+Time Complexity: O(n)
+Space Complexity: O(1)
