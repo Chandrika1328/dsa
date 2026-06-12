@@ -1,4 +1,4 @@
-# Brute Force
+#  voting Brute Force
 For every element, count its occurrences in the entire array.
 If any element appears more than n/2 times, return it.
 Time Complexity: O(n²), Space Complexity: O(1)

@@ -1,0 +1,246 @@
+## Problem
+
+Given an integer array `nums`, find the subarray with the largest sum and return its sum.
+
+---
+
+## Brute Force
+
+1. Generate all possible subarrays.
+2. Calculate the sum of every subarray.
+3. Return the maximum sum among all subarrays.
+
+Time Complexity: O(n³)
+
+Space Complexity: O(1)
+
+---
+
+## Better Approach
+
+1. Generate all subarrays using two loops.
+2. Maintain a running sum instead of recalculating the sum every time.
+3. Update the maximum sum whenever a larger sum is found.
+
+Time Complexity: O(n²)
+
+Space Complexity: O(1)
+
+---
+
+## Optimal Approach (Kadane's Algorithm)
+
+### Key Idea
+
+If the running sum becomes negative, it cannot contribute to a larger subarray in the future.
+
+So discard it and start a new subarray.
+
+---
+
+## Algorithm
+
+1. Initialize:
+
+   * sum = 0
+   * maxSum = nums[0]
+
+2. Traverse the array from left to right.
+
+3. Add the current element to sum.
+
+4. Update:
+
+   * maxSum = max(maxSum, sum)
+
+5. If sum becomes negative:
+
+   * Set sum = 0
+
+6. Continue until the end of the array.
+
+7. Return maxSum.
+
+---
+
+## English Pseudocode
+
+Kadane(arr)
+
+sum = 0
+
+maxSum = arr[0]
+
+For each element in arr
+
+```
+sum = sum + element
+
+maxSum = max(maxSum, sum)
+
+If sum < 0
+
+    sum = 0
+```
+
+Return maxSum
+
+---
+
+## Dry Run
+
+Array:
+
+[-2, 1, -3, 4, -1, 2, 1, -5, 4]
+
+Initial:
+
+sum = 0
+
+maxSum = -2
+
+---
+
+Current = -2
+
+sum = -2
+
+maxSum = max(-2, -2) = -2
+
+sum < 0
+
+sum = 0
+
+---
+
+Current = 1
+
+sum = 1
+
+maxSum = max(-2, 1) = 1
+
+---
+
+Current = -3
+
+sum = -2
+
+maxSum = 1
+
+sum < 0
+
+sum = 0
+
+---
+
+Current = 4
+
+sum = 4
+
+maxSum = 4
+
+---
+
+Current = -1
+
+sum = 3
+
+maxSum = 4
+
+---
+
+Current = 2
+
+sum = 5
+
+maxSum = 5
+
+---
+
+Current = 1
+
+sum = 6
+
+maxSum = 6
+
+---
+
+Current = -5
+
+sum = 1
+
+maxSum = 6
+
+---
+
+Current = 4
+
+sum = 5
+
+maxSum = 6
+
+---
+
+Final Answer:
+
+Maximum Subarray Sum = 6
+
+Subarray = [4, -1, 2, 1]
+
+---
+
+## Why Reset sum to 0?
+
+Suppose:
+
+sum = -5
+
+Next element = 10
+
+If we keep the negative sum:
+
+-5 + 10 = 5
+
+If we start fresh:
+
+10
+
+Starting fresh gives a larger sum.
+
+Therefore, whenever sum becomes negative:
+
+sum = 0
+
+---
+
+## Special Case: All Negative Numbers
+
+Array:
+
+[-3, -2, -5, -1]
+
+If we initialize:
+
+maxSum = 0
+
+Answer becomes incorrect.
+
+Therefore:
+
+maxSum = nums[0]
+
+This ensures all-negative arrays are handled correctly.
+
+---
+
+## Complexity
+
+Time Complexity: O(n)
+
+Space Complexity: O(1)
+
+---
+
+
+
+
