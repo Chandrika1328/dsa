@@ -1,0 +1,172 @@
+# Best Time to Buy and Sell Stock
+
+## Problem
+
+Given an array `prices` where `prices[i]` represents the stock price on the `i-th` day, find the maximum profit that can be achieved by buying on one day and selling on a later day.
+
+You can complete at most one transaction (one buy and one sell).
+
+
+
+## Key Idea
+
+1. If you are selling on the `i-th` day, you should buy at the minimum price seen before that day.
+
+2. For every day, calculate:
+
+   `profit = currentPrice - minimumPriceSoFar`
+
+3. Keep track of:
+
+   * The minimum price seen so far.
+   * The maximum profit obtained so far.
+
+4. Update the minimum price while traversing the array.
+
+
+
+## Algorithm
+
+1. Initialize:
+
+   * `minPrice = prices[0]`
+   * `maxProfit = 0`
+
+2. Traverse the array from index `1` to `n-1`.
+
+3. For every price:
+
+   * Calculate profit:
+
+     `profit = prices[i] - minPrice`
+
+4. Update maximum profit:
+
+   `maxProfit = max(maxProfit, profit)`
+
+5. Update minimum price:
+
+   `minPrice = min(minPrice, prices[i])`
+
+6. Continue until the end of the array.
+
+7. Return `maxProfit`.
+
+
+## English Pseudocode
+
+
+BestTimeToBuyAndSellStock(prices)
+
+minPrice = prices[0]
+
+maxProfit = 0
+
+For i = 1 to n-1
+
+    profit = prices[i] - minPrice
+
+    maxProfit = max(maxProfit, profit)
+
+    minPrice = min(minPrice, prices[i])
+
+Return maxProfit
+
+
+
+
+## Dry Run
+
+Array:
+
+[7, 1, 5, 3, 6, 4]
+
+
+Initial:
+
+
+minPrice = 7
+maxProfit = 0
+
+
+### Day 1 (Price = 1)
+
+profit = 1 - 7 = -6
+
+maxProfit = 0
+
+minPrice = 1
+
+
+### Day 2 (Price = 5)
+
+profit = 5 - 1 = 4
+
+maxProfit = 4
+
+minPrice = 1
+
+
+### Day 3 (Price = 3)
+
+
+profit = 3 - 1 = 2
+
+maxProfit = 4
+
+minPrice = 1
+
+
+### Day 4 (Price = 6)
+
+
+profit = 6 - 1 = 5
+
+maxProfit = 5
+
+minPrice = 1
+
+
+### Day 5 (Price = 4)
+
+profit = 4 - 1 = 3
+
+maxProfit = 5
+
+minPrice = 1
+
+
+## Final Answer
+
+Maximum Profit = 5
+
+Buy at price = 1
+
+Sell at price = 6
+
+
+## Why Does This Work?
+
+
+For every selling day,
+
+we always choose the minimum buying price available on its left.
+
+
+This guarantees the maximum profit for that selling day.
+
+Among all selling days, we keep the maximum profit.
+
+
+
+## Complexity
+
+
+Time Complexity  : O(n)
+
+Space Complexity : O(1)
+
+
+
+
+
