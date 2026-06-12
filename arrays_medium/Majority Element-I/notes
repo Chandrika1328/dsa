@@ -1,0 +1,181 @@
+# Brute Force
+For every element, count its occurrences in the entire array.
+If any element appears more than n/2 times, return it.
+Time Complexity: O(n²), Space Complexity: O(1)
+
+# Better Approach (HashMap)
+Store the frequency of each element in a HashMap.
+Traverse the map and find the element whose frequency is greater than n/2.
+Time Complexity: O(n), Space Complexity: O(n)
+
+# Moore's Voting Algorithm
+
+Definition:
+
+Moore's Voting Algorithm is used to find the Majority Element in an array.
+
+A Majority Element is an element that appears more than n/2 times.
+
+Key Idea:
+
+* Maintain a candidate element and a count.
+* If count becomes 0, choose the current element as the new candidate.
+* If the current element matches the candidate, increment count.
+* Otherwise, decrement count.
+* The majority element survives all cancellations and remains the final candidate.
+
+Algorithm:
+
+1. Initialize:
+
+   * count = 0
+   * candidate = -1
+
+2. Traverse the array.
+
+3. If count == 0:
+
+   * candidate = current element
+   * count = 1
+
+4. Else if current element == candidate:
+
+   * count++
+
+5. Else:
+
+   * count--
+
+6. After traversal, candidate contains the potential majority element.
+
+7. If majority element is not guaranteed:
+
+   * Count the frequency of candidate.
+   * If frequency > n/2, return candidate.
+   * Else return -1.
+
+Dry Run
+
+Array:
+
+[2, 2, 1, 1, 1, 2, 2]
+
+Initial:
+
+count = 0
+candidate = -
+
+Step 1:
+
+Current = 2
+
+count == 0
+
+candidate = 2
+count = 1
+
+Step 2:
+
+Current = 2
+
+Same as candidate
+
+count = 2
+
+Step 3:
+
+Current = 1
+
+Different from candidate
+
+count = 1
+
+Step 4:
+
+Current = 1
+
+Different from candidate
+
+count = 0
+
+Step 5:
+
+Current = 1
+
+count == 0
+
+candidate = 1
+count = 1
+
+Step 6:
+
+Current = 2
+
+Different from candidate
+
+count = 0
+
+Step 7:
+
+Current = 2
+
+count == 0
+
+candidate = 2
+count = 1
+
+End of First Pass:
+
+candidate = 2
+count = 1
+
+Note:
+
+count = 1 does NOT mean frequency = 1.
+
+count only represents the balance after cancellation.
+
+Verification Pass:
+
+Count frequency of candidate (2).
+
+2 -> freq = 1
+
+2 -> freq = 2
+
+1 -> freq = 2
+
+1 -> freq = 2
+
+1 -> freq = 2
+
+2 -> freq = 3
+
+2 -> freq = 4
+
+Final:
+
+freq = 4
+n = 7
+n/2 = 3
+
+4 > 3
+
+Majority Element = 2
+
+Complexity:
+
+Time Complexity:
+
+* O(n) for Moore's Voting
+* O(n) for verification
+
+Total: O(2n)
+
+Space Complexity:
+
+* O(1)
+
+Striver One-Liner:
+
+Find a candidate by cancelling different elements against each other. Then verify whether the candidate appears more than n/2 times.
