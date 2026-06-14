@@ -1,0 +1,256 @@
+# Rearrange Array Elements by Sign (Variety 2)
+
+## Problem
+
+Given an array containing positive and negative numbers where the counts may not be equal:
+
+* Arrange positive and negative numbers alternately as much as possible.
+* Maintain the relative order of positive elements.
+* Maintain the relative order of negative elements.
+* Place the remaining extra elements at the end.
+
+Example:
+
+
+Input:  [1, 2, 3, -1, -2]
+
+
+
+---
+
+## Brute Force / Optimal Approach
+
+### Key Idea
+
+1. Store all positive elements in a positive array.
+2. Store all negative elements in a negative array.
+3. Fill the original array alternately using both arrays.
+4. Once one array gets exhausted, append the remaining elements of the larger array.
+
+---
+
+## Algorithm
+
+### Step 1: Separate Positive and Negative Elements
+
+Create:
+
+
+positive[]
+negative[]
+
+
+Traverse the array:
+
+* If element > 0, add to positive[].
+* Else add to negative[].
+
+---
+
+### Case 1: Positive Elements are More
+
+If:
+
+
+positive.length > negative.length
+
+
+Fill alternately:
+
+
+nums[2*i]     = positive[i]
+nums[2*i + 1] = negative[i]
+
+
+for all negative elements.
+
+Now all negative elements are used.
+
+Calculate:
+
+
+index = negative.length * 2
+
+
+This is the first empty position.
+
+Store the remaining positive elements from:
+
+
+i = negative.length
+to
+positive.length - 1
+
+
+at:
+
+
+nums[index]
+
+
+and increment index.
+
+---
+
+### Case 2: Negative Elements are More
+
+If:
+
+
+negative.length > positive.length
+
+
+Fill alternately:
+
+
+nums[2*i]     = positive[i]
+nums[2*i + 1] = negative[i]
+
+
+for all positive elements.
+
+Now all positive elements are used.
+
+Calculate:
+
+
+index = positive.length * 2
+
+
+This is the first empty position.
+
+Store the remaining negative elements from:
+
+
+i = positive.length
+to
+negative.length - 1
+
+
+at:
+
+
+nums[index]
+
+
+and increment index.
+
+---
+
+## English Pseudocode
+
+
+Create positive array
+Create negative array
+
+For each element in nums
+
+    If element > 0
+
+        Add element to positive
+
+    Else
+
+        Add element to negative
+
+If positive.length > negative.length
+
+    For i = 0 to negative.length - 1
+
+        nums[2*i] = positive[i]
+
+        nums[2*i + 1] = negative[i]
+
+    index = negative.length * 2
+
+    For i = negative.length to positive.length - 1
+
+        nums[index] = positive[i]
+
+        index++
+
+Else
+
+    For i = 0 to positive.length - 1
+
+        nums[2*i] = positive[i]
+
+        nums[2*i + 1] = negative[i]
+
+    index = positive.length * 2
+
+    For i = positive.length to negative.length - 1
+
+        nums[index] = negative[i]
+
+        index++
+
+
+---
+
+## Dry Run
+
+
+nums = [1, 2, 3, -1, -2]
+
+positive = [1, 2, 3]
+
+negative = [-1, -2]
+
+
+Since:
+
+
+positive.length = 3
+
+negative.length = 2
+
+
+Fill alternately:
+
+nums[0] = 1
+
+nums[1] = -1
+
+nums[2] = 2
+
+nums[3] = -2
+
+
+Current array:
+
+
+[1, -1, 2, -2, _]
+
+
+Now:
+
+
+index = negative.length * 2
+
+index = 2 * 2 = 4
+
+
+Remaining positive element:
+
+
+nums[4] = 3
+
+
+Final array:
+
+
+[1, -1, 2, -2, 3]
+
+
+---
+
+## Complexity
+
+Time Complexity: O(n)
+
+Space Complexity: O(n)
+
+---
+
+

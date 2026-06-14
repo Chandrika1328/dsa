@@ -1,0 +1,182 @@
+# Rearrange Array Elements by Sign (Equal Positives and Negatives)
+
+## Problem
+
+Given an array containing an equal number of positive and negative elements, rearrange the array such that:
+
+* Positive and negative elements appear alternately.
+* The first element is positive.
+* Relative order of positive elements remains the same.
+* Relative order of negative elements remains the same.
+
+Example:
+
+Input:  [3, 1, -2, -5, 2, -4]
+
+Output: [3, -2, 1, -5, 2, -4]
+
+
+---
+
+## Observation
+
+* Positive numbers always occupy even indices:
+
+  0, 2, 4, 6, ...
+
+* Negative numbers always occupy odd indices:
+
+  1, 3, 5, 7, ...
+
+---
+
+## Brute Force Approach
+
+### Idea
+
+1. Create two separate arrays:
+
+   * positive[]
+   * negative[]
+
+2. Traverse the original array.
+
+   * If element > 0, store it in positive[].
+   * Otherwise, store it in negative[].
+
+3. Traverse from 0 to n/2 - 1.
+
+4. Place:
+
+   * positive[i] at index 2*i
+   * negative[i] at index 2*i + 1
+
+5. Return the modified array.
+
+### English Pseudocode
+
+
+Create positive array
+Create negative array
+
+For each element in nums
+
+    If element > 0
+
+        Add element to positive
+
+    Else
+
+        Add element to negative
+
+For i = 0 to n/2 - 1
+
+    nums[2*i] = positive[i]
+
+    nums[2*i + 1] = negative[i]
+
+
+
+### Complexity
+
+Time Complexity: O(n)
+
+Space Complexity: O(n)
+
+---
+
+## Optimal Approach
+
+### Key Idea
+
+Since:
+
+* Positive elements belong to even indices.
+* Negative elements belong to odd indices.
+
+We can directly place elements into their correct positions using two indices.
+
+### Algorithm
+
+1. Create an answer array of size n.
+
+2. Initialize:
+
+   * posIndex = 0
+   * negIndex = 1
+
+3. Traverse the array.
+
+4. If current element is positive:
+
+   * Place it at ans[posIndex]
+   * Increment posIndex by 2
+
+5. If current element is negative:
+
+   * Place it at ans[negIndex]
+   * Increment negIndex by 2
+
+6. Return answer array.
+
+### English Pseudocode
+
+
+Create answer array of size n
+
+posIndex = 0
+
+negIndex = 1
+
+For each element in nums
+
+    If element > 0
+
+        ans[posIndex] = element
+
+        posIndex = posIndex + 2
+
+    Else
+
+        ans[negIndex] = element
+
+        negIndex = negIndex + 2
+
+Return ans
+
+
+### Dry Run
+
+
+nums = [3, 1, -2, -5, 2, -4]
+
+ans = [_, _, _, _, _, _]
+
+posIndex = 0
+negIndex = 1
+
+3  -> ans[0] = 3      posIndex = 2
+
+1  -> ans[2] = 1      posIndex = 4
+
+-2 -> ans[1] = -2     negIndex = 3
+
+-5 -> ans[3] = -5     negIndex = 5
+
+2  -> ans[4] = 2      posIndex = 6
+
+-4 -> ans[5] = -4     negIndex = 7
+
+Final Answer:
+
+[3, -2, 1, -5, 2, -4]
+
+
+### Complexity
+
+Time Complexity: O(n)
+
+Space Complexity: O(n)
+
+---
+
