@@ -1,0 +1,182 @@
+# Leaders in an Array
+
+## Problem
+
+Given an array, find all the leaders.
+
+A leader is an element that is greater than or equal to all the elements present on its right side.
+
+The last element is always a leader because there are no elements on its right.
+
+---
+
+## Example
+
+Input:
+
+4 7 1 0
+
+Output:
+
+7 1 0
+
+Explanation:
+
+* 0 is a leader because no element exists on its right.
+* 1 is greater than 0.
+* 7 is greater than 1 and 0.
+* 4 is not a leader because 7 is present on its right and is greater than 4.
+
+---
+
+## Intuition
+
+For every element, we need to know whether a greater element exists on its right side.
+
+Instead of checking all elements on the right for every index, we can traverse from right to left and maintain the maximum element seen so far.
+
+### Observation
+
+1. The last element is always a leader.
+2. While traversing from right to left, keep track of the maximum element seen so far.
+3. If the current element is greater than or equal to this maximum, it is a leader.
+4. Update the maximum element.
+5. Since leaders are collected from right to left, reverse the answer at the end.
+
+---
+
+## Algorithm
+
+### Step 1: Initialize
+
+* Create an empty answer array.
+* Initialize maxi with the last element of the array.
+
+### Step 2: Traverse from Right to Left
+
+For every element:
+
+* If nums[i] >= maxi:
+
+  * It is a leader.
+  * Add it to the answer array.
+
+* Update:
+
+  maxi = max(maxi, nums[i])
+
+### Step 3: Reverse the Answer
+
+Since leaders are collected from right to left, reverse the answer array to get them in the original order.
+
+---
+
+## Dry Run
+
+Input:
+
+4 7 1 0
+
+Initial:
+
+maxi = 0
+
+ans = []
+
+---
+
+i = 3
+
+Element = 0
+
+0 >= 0 ✔
+
+Add 0
+
+ans = [0]
+
+maxi = max(0, 0) = 0
+
+---
+
+i = 2
+
+Element = 1
+
+1 >= 0 ✔
+
+Add 1
+
+ans = [0, 1]
+
+maxi = max(0, 1) = 1
+
+---
+
+i = 1
+
+Element = 7
+
+7 >= 1 ✔
+
+Add 7
+
+ans = [0, 1, 7]
+
+maxi = max(1, 7) = 7
+
+---
+
+i = 0
+
+Element = 4
+
+4 >= 7 ✘
+
+Not a leader
+
+ans = [0, 1, 7]
+
+---
+
+Reverse the answer:
+
+Before Reverse:
+
+0 1 7
+
+After Reverse:
+
+7 1 0
+
+Final Answer:
+
+7 1 0
+
+---
+
+## Why This Works?
+
+While moving from right to left:
+
+* maxi always stores the greatest element seen on the right side.
+* If the current element is greater than or equal to maxi, no greater element exists on its right.
+* Therefore, it must be a leader.
+
+---
+
+## Code Logic Summary
+
+1. Start from the last element.
+2. Maintain a maximum element seen so far.
+3. If the current element is greater than or equal to the maximum, add it to the answer.
+4. Update the maximum.
+5. Reverse the answer and return it.
+
+---
+
+## Complexity
+
+Time Complexity: O(N)
+
+Space Complexity: O(N)
