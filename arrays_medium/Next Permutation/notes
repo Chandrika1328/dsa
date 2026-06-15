@@ -1,0 +1,152 @@
+# Next Permutation
+
+## Intuition
+
+We need to find the next lexicographically greater permutation. The idea is to make the smallest possible change so that the resulting permutation is just greater than the current one.
+
+### Observations
+
+1. Try to keep the longest prefix unchanged.
+2. Find the first position from the right where the increasing order breaks. This is called the breakpoint.
+3. Replace the breakpoint element with the smallest element that is greater than it from the right side.
+4. Arrange the remaining elements in the smallest possible order.
+
+---
+
+## Algorithm
+
+### Step 1: Find the Breakpoint
+
+* Traverse the array from right to left starting from index n-2.
+
+* Find the first index i such that:
+
+  arr[i] < arr[i+1]
+
+* Store this index in breakpoint and stop.
+
+Why?
+
+* Elements after the breakpoint are already in decreasing order.
+* No larger permutation can be formed by changing only that suffix.
+
+---
+
+### Step 2: Handle Edge Case
+
+* If no breakpoint is found (breakpoint = -1):
+
+  * The array is already the largest permutation.
+  * Reverse the entire array.
+  * This gives the smallest permutation, which is the next permutation according to the problem.
+
+Example:
+
+Current: 3 2 1
+
+After reversing: 1 2 3
+
+---
+
+### Step 3: Find the Next Greater Element
+
+* Traverse from the last index towards the breakpoint.
+* Find the first element greater than arr[breakpoint].
+* Swap them.
+
+Why?
+
+* We want the smallest possible increase.
+* The first greater element from the right is the element just larger than the breakpoint element.
+
+---
+
+### Step 4: Reverse the Remaining Suffix
+
+* After swapping, the suffix is still in decreasing order.
+* Reverse the part from breakpoint + 1 to n - 1.
+
+Why?
+
+* We need the smallest possible arrangement after the breakpoint.
+* Reversing converts the decreasing suffix into increasing order.
+
+---
+
+## Dry Run
+
+Input:
+
+2 1 5 4 3 0 0
+
+### Find Breakpoint
+
+Traverse from right to left:
+
+0 > 0 ❌
+
+3 > 0 ❌
+
+4 > 3 ❌
+
+5 > 4 ❌
+
+1 < 5 ✅
+
+Breakpoint = 1
+
+Array:
+
+2 1 5 4 3 0 0
+
+↑
+Breakpoint
+
+---
+
+### Find Next Greater Element
+
+Traverse from the right side.
+
+First element greater than 1 is 3.
+
+Swap 1 and 3.
+
+Array becomes:
+
+2 3 5 4 1 0 0
+
+---
+
+### Reverse the Suffix
+
+Reverse everything after the breakpoint.
+
+Before reverse:
+
+5 4 1 0 0
+
+After reverse:
+
+0 0 1 4 5
+
+Final array:
+
+2 3 0 0 1 4 5
+
+---
+
+## Code Logic Summary
+
+1. Find the breakpoint from the right.
+2. If no breakpoint exists, reverse the entire array.
+3. Otherwise, find the first element greater than the breakpoint element from the right and swap.
+4. Reverse the suffix after the breakpoint.
+
+---
+
+## Complexity
+
+Time Complexity: O(N)
+
+Space Complexity: O(1)
